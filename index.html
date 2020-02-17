@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Hunter's VR MESS</title>
+    <meta name="author" content="Hunter Brown">
+    <meta name="description" content="WebVR Assignment">
+
+    <!-- Import A-Frame Library -->
+    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+  </head>
+  <body>
+
+   <!-- All A-Frane elements must go in a-scene -->
+    <a-scene>
+
+      <!-- Init Camera Pos -->
+      <a-camera position="0 0 0"></a-camera>
+
+      <!-- List Assets (video and circle) -->
+      <a-assets>
+        <video id="glitch_layer" autoplay loop="true" src="videos/leahs_piece_footie_1_2.mp4"></video>
+
+        <!-- Gltf course/credit: https://poly.google.com/view/02jR6jaOBVU (nate insolitum) -->
+        <a-asset-item id="circle-gltf" src="models/gltf/circle/bluegreencircle.gltf"></a-asset-item>
+      </a-assets>
+
+      <!-- Video on its side to form warped circular patterns -->
+      <a-videosphere src="#glitch_layer"  rotation="90 0 0"></a-videosphere>
+
+      <!-- Mouse Tracking for Animation -->
+      <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
+
+      <!-- Animated Circle Object w/ animation -->
+      <a-entity id="circle"
+        position="0 0 -20"
+        animation="property: position;
+                   to: 0 0 0;
+                   dur: 10000;
+                   easing: linear;
+                   loop: true;">
+        <a-entity scale="1 1 1" position="0 0 0.556">
+          <a-entity
+            gltf-model="#circle-gltf"
+            rotation="90 0 0"
+            animation__mouseenter="property: position; type: position; to: 0 0 -200; startEvents: mouseenter; dur: 500";
+            animation__mouseleave="property: position; type: position; to: 0 0 2; startEvents: mouseleave; dur: 500";>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
